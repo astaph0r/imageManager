@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>Leads4Needs Image Manager</title>
+	</head>
+	<body>
+		<form
+			action="/pictures"
+			method="POST"
+			enctype="multipart/form-data"
+		>
+			Select an image to upload:
+            <br>
+			<input type="file" name="image" required/>
+			<input type="submit" value="Upload Image" />
+		</form>
+		<br />
+		<form
+			action="/changePictures"
+			method="POST"
+			enctype="multipart/form-data"
+		>
+			Select an image and put an ID in the text field to change image:
+            <br>
+			<input type="file" name="changeImage" required/>
+            ID:
+			<input type="text" name="changeImageID" required/>
+			<input type="submit" value="Change Image" />
+		</form>
+		<div id="imagesDiv"></div>
+		<script>
+			getImages();
+			async function getImages() {
+				setTimeout(async () => {
+					let response = await fetch("/pictures", {
+						method: "get",
+					});
+					let images = await response.json();
+					let div = document.getElementById("imagesDiv");
+					if (images) {
+						div.innerHTML = "<br>";
+						images.forEach((element) => {
+							let childDiv = document.createElement("div");
+                            childDiv.innerHTML ="<br>";
+							let img = document.createElement("img");
+							img.src = "data:image/png;base64," + element.image;
+							img.id = element.id;
+							img.width = 200;
+							let label = document.createElement("p");
+							label.innerHTML = "ID: "+ element.id;
+							let deleteLink = document.createElement("button");
+							deleteLink.innerText = "Delete";
+							deleteLink.onclick = function () {
+								deleteImage(element.id);
+							};
+							childDiv.appendChild(img);
+							childDiv.appendChild(label);
+							childDiv.appendChild(deleteLink);
+							div.appendChild(childDiv);
+						});
+					} else {
+						div.innerText = "No Images";
+					}
+				}, 700);
+			}
+
+			async function deleteImage(id) {
+				fetch("pictures/" + id, {
+					method: "DELETE",
+				})
+					.then((res) => console.log(res.json))
+					.then(getImages());
+			}
+		</script>
+	</body>
+</html>
