@@ -6,9 +6,11 @@ A Node/Express based Image CRUD Manager which saves the images to MongoDB as Buf
 - Backend
   - run ```npm i```
   - create a `.env` file
-  - Add the ID and Secret you got from OAuth in the `.env` file
+  - Add the details in the `.env` file
   - ```
     PORT=5000
     DATABASE=<Mongo URL>
     ```
   - run ```node index.js```
+  
+- You can also visit [Image Manager](https://imagemanager212.herokuapp.com/) for the live website.
