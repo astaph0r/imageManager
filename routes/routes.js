@@ -4,7 +4,7 @@ const fs = require("fs");
 const ImageModel = require("../models/image");
 
 const uploading = multer({
-	dest: "../uploads",
+	dest:  __dirname + "/uploads",
 	limits: { fileSize: 6000000, files: 1 },
 });
 
