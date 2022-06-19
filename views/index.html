@@ -32,8 +32,10 @@
 		<script>
 			getImages();
 			async function getImages() {
-				setTimeout(async () => {
-					let response = await fetch("/pictures", {
+				// setTimeout(async () => {
+					
+				// }, 700);
+				let response = await fetch("/pictures", {
 						method: "get",
 					});
 					let images = await response.json();
@@ -62,7 +64,6 @@
 					} else {
 						div.innerText = "No Images";
 					}
-				}, 700);
 			}
 
 			async function deleteImage(id) {

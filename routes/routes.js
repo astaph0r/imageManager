@@ -66,7 +66,7 @@ router.post(
 router.delete("/pictures/:id", async (req, res) => {
 	try {
 		const id = req.params.id;
-		ImageModel.findOneAndDelete({ id: id }, (err, resq) => {
+		const removedImage = await ImageModel.findOneAndDelete({ id: id }, (err, resq) => {
 			if (err) {
 				console.log(error);
 			} else {
